@@ -9,10 +9,12 @@ if __name__ == "__main__":
     all_items = []
     for spks in os.listdir(f"./{rootPath}"):
         if os.path.isdir(f"./{rootPath}/{spks}"):
+            print(f">>>>>>>>>>{spks}<<<<<<<<<<")
             for file in os.listdir(f"./{rootPath}/{spks}"):
                 if file.endswith(".wav"):
                     file = file[:-4]
-                    path_spk = f"./data_svc/speaker/{spks}/{file}.spk.npy"
+                    spk_file = file.replace('.wav_', '.spk_')
+                    path_spk = f"./data_svc/speaker/{spks}/{spk_file}.spk.npy"
                     path_wave = f"./data_svc/waves-48k/{spks}/{file}.wav"
                     path_spec = f"./data_svc/specs/{spks}/{file}.pt"
                     path_pitch = f"./data_svc/pitch/{spks}/{file}.pit.npy"

@@ -1,4 +1,7 @@
 import os
+import sys
+# insert the root dir
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import torch
 import numpy as np
 import argparse
@@ -14,9 +17,12 @@ from speaker.infer import read_json
 
 def get_spk_wavs(dataset_path, output_path):
     wav_files = []
-    os.makedirs(f"./{output_path}")
+    os.makedirs(f"./{output_path}", exist_ok=True)
     for spks in os.listdir(dataset_path):
         if os.path.isdir(f"./{dataset_path}/{spks}"):
+            if os.path.exists(f"./{output_path}/{spks}"):
+                print(f">>>>>>>>>>{spks}<<<<<<<<<<")
+                continue
             os.makedirs(f"./{output_path}/{spks}")
             for file in os.listdir(f"./{dataset_path}/{spks}"):
                 if file.endswith(".wav"):

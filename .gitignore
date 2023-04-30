@@ -1,0 +1,16 @@
+tmp/*
+data/*
+__pycache__
+*.txt
+.env
+tmp
+*.db
+databases/*
+datasets/*
+*.wav
+*.mp3
+*.npy
+*.pt
+*.tar
+logs/*
+seperated/*

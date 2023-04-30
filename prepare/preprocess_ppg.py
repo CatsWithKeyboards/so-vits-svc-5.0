@@ -20,7 +20,7 @@ def pred_ppg(whisper: Whisper, wavPath, ppgPath):
     audio = load_audio(wavPath)
     audln = audio.shape[0]
     ppgln = audln // 320
-    # audio = pad_or_trim(audio)
+    audio = pad_or_trim(audio)
     mel = log_mel_spectrogram(audio).to(whisper.device)
     with torch.no_grad():
         ppg = whisper.encoder(mel.unsqueeze(0)).squeeze().data.cpu().float().numpy()
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print(args.wav)
     print(args.ppg)
-    os.makedirs(args.ppg)
+    os.makedirs(args.ppg, exist_ok=True)
     wavPath = args.wav
     ppgPath = args.ppg
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     for spks in os.listdir(wavPath):
         if os.path.isdir(f"./{wavPath}/{spks}"):
-            os.makedirs(f"./{ppgPath}/{spks}")
+            os.makedirs(f"./{ppgPath}/{spks}", exist_ok=True)
             print(f">>>>>>>>>>{spks}<<<<<<<<<<")
             for file in os.listdir(f"./{wavPath}/{spks}"):
                 if file.endswith(".wav"):

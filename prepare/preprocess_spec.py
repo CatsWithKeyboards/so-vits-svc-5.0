@@ -1,4 +1,7 @@
 import os
+import sys
+# insert the root dir
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import torch
 import argparse
 
@@ -35,13 +38,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print(args.wav)
     print(args.spe)
-    os.makedirs(args.spe)
+    os.makedirs(args.spe, exist_ok=True)
     wavPath = args.wav
     spePath = args.spe
     hps = OmegaConf.load("./configs/base.yaml")
 
     for spks in os.listdir(wavPath):
         if os.path.isdir(f"./{wavPath}/{spks}"):
+            if os.path.exists(f"./{spePath}/{spks}"):
+                print(f">>>>>>>>>>{spks}<<<<<<<<<<")
+                continue
             os.makedirs(f"./{spePath}/{spks}")
             print(f">>>>>>>>>>{spks}<<<<<<<<<<")
             for file in os.listdir(f"./{wavPath}/{spks}"):

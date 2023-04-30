@@ -23,7 +23,7 @@ if __name__ == "__main__":
     print(args.wav)
     print(args.out)
     print(args.sr)
-    os.makedirs(args.out)
+    os.makedirs(args.out, exist_ok=True)
     wavPath = args.wav
     outPath = args.out
 
@@ -31,6 +31,10 @@ if __name__ == "__main__":
 
     for spks in os.listdir(wavPath):
         if os.path.isdir(f"./{wavPath}/{spks}"):
+            # if it exists a folder, skip it and print
+            if os.path.exists(f"./{outPath}/{spks}"):
+                print(f">>>>>>>>>>{spks}<<<<<<<<<<")
+                continue
             os.makedirs(f"./{outPath}/{spks}")
             print(f">>>>>>>>>>{spks}<<<<<<<<<<")
             for file in os.listdir(f"./{wavPath}/{spks}"):

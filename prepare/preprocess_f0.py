@@ -28,12 +28,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print(args.wav)
     print(args.pit)
-    os.makedirs(args.pit)
+    os.makedirs(args.pit, exist_ok=True)
     wavPath = args.wav
     pitPath = args.pit
 
     for spks in os.listdir(wavPath):
         if os.path.isdir(f"./{wavPath}/{spks}"):
+            if os.path.exists(f"./{pitPath}/{spks}"):
+                print(f">>>>>>>>>>{spks}<<<<<<<<<<")
+                continue
             os.makedirs(f"./{pitPath}/{spks}")
             print(f">>>>>>>>>>{spks}<<<<<<<<<<")
             for file in os.listdir(f"./{wavPath}/{spks}"):

@@ -1,3 +1,7 @@
+import sys
+import os
+# insert the root dir
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 from omegaconf import OmegaConf
